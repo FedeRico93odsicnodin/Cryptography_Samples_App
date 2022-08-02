@@ -19,6 +19,8 @@ GtkWidget	*win_caesar;
 
 // allows to initialize windows for current context 
 void Gen_Alg_Init_Windows(GtkWidget *win_main, GtkBuilder *builder) {
+
+    // TEST NEW COMMIT
     //win_main = main_win;
     //builder = gtk_builder_new_from_file ("Main_Cryptography.glade");
     // ref to main win
