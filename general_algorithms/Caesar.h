@@ -42,11 +42,18 @@ void InitMainWindow_Caesar(GtkWidget *win_caesar, GtkBuilder *builder) {
 gchar *encrypt_caesar(gchar *txtToEncrypt, int key) {
 
     gchar *s;
-    s = "aaaa";    
+    int txt_len = strlen(txtToEncrypt);
+    s = "aaa";
 
-    // TODO: implementation 
+    for (int i = 0; i < txt_len; i++) {
 
-    return s;
+        char ch;
+        ch = txtToEncrypt[i] + key;
+        txtToEncrypt[i] = ch;
+    }
+    // done encryption 
+    printf("caesar encryption done!\n");
+    return txtToEncrypt;
 
 }
 
@@ -70,7 +77,7 @@ void on_enc_action_btn_clicked(GtkButton *b) {
         key = atoi(key_text);
 
         // printing key info
-        printf("attemp = %d\n",key);
+        printf("key = %d\n",key);
 
         // encrypting the text 
         encrypted_txt = encrypt_caesar(text, key);
