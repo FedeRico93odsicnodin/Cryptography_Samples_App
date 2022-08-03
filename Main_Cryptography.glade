@@ -24,7 +24,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkLabel" id="txt_1_descr_lbl">
             <property name="width-request">100</property>
             <property name="height-request">31</property>
             <property name="visible">True</property>
@@ -100,6 +100,21 @@
           <packing>
             <property name="x">20</property>
             <property name="y">230</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="revert_caesar_btn">
+            <property name="label" translatable="yes">revert</property>
+            <property name="width-request">10</property>
+            <property name="height-request">10</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_revert_caesar_btn_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">283</property>
+            <property name="y">3</property>
           </packing>
         </child>
       </object>
