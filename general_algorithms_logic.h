@@ -8,8 +8,8 @@
 #include <math.h>
 #include <ctype.h>
 
-// the main builder
-//GtkBuilder	*builder; 
+// algorithms inclusion
+#include "general_algorithms/Caesar.h"
 
 // reference to main win
 GtkWidget	*win_main_ref;
@@ -20,12 +20,12 @@ GtkWidget	*win_caesar;
 // allows to initialize windows for current context 
 void Gen_Alg_Init_Windows(GtkWidget *win_main, GtkBuilder *builder) {
 
-    // TEST NEW COMMIT
-    //win_main = main_win;
-    //builder = gtk_builder_new_from_file ("Main_Cryptography.glade");
     // ref to main win
     win_main_ref = win_main;
     win_caesar = GTK_WIDGET(gtk_builder_get_object(builder, "caesar_win"));
+
+    // initialization for the program interface 
+    InitMainWindow_Caesar(win_caesar, builder);
 }
 
 

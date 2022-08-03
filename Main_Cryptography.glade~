@@ -79,7 +79,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkTextView" id="key_length">
+          <object class="GtkTextView">
             <property name="width-request">100</property>
             <property name="height-request">30</property>
             <property name="visible">True</property>
