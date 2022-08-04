@@ -19,18 +19,23 @@
 // available algorithms inclusion
 #include "general_algorithms/Caesar.h"
 #include "general_algorithms/Vigenère.h"
+#include "general_algorithms/OTP.h"
 
 ////////// CONST STRINGS FOR THE FORM //////////
-const char *LBL_TXT_1_ENC = "please insert the text to encrypt";
-const char *LBL_TXT_2_DEC = "please insert the text to decrypt";
-const char *LBL_BTN_1_ENC = "encrypt!";
-const char *LBL_BTN_2_DEC = "decrypt!";
+const char *LBL_TXT_1_ENC = "please insert the text to encrypt"; // label description for text to decrypt
+const char *LBL_TXT_2_DEC = "please insert the text to decrypt"; // label description for text to encrypt
+const char *LBL_BTN_1_ENC = "encrypt!";                          // label description for button encrypt    
+const char *LBL_BTN_2_DEC = "decrypt!";                          // label description for button decrypt 
+// label description for the key and vigenere algorithm
+const char *LBL_TXT_KEY_VIGENERE = "insert key (each digit is a position)";
+
 
 // enumerator for the implementation of the general algorithms in the form 
 typedef enum  {
     
     caesar = 1,
-    vigenere = 2
+    vigenere = 2,
+    otp = 3
 } general_algorithms; 
 
 // the selected algorithm 
@@ -51,10 +56,23 @@ GtkTextView *key_length;
 
 // label and button for decription updates
 GtkLabel *descr_txt_label;
+GtkLabel *key_descr_lbl;
 GtkButton *action_btn;
 
 
 /////////// ALGORITHM SWITCH ///////////
+
+// form configuration for the different algorithms at hand 
+void init_form_on_algorithm() {
+    switch(_currAlg) {
+        case vigenere: {
+            // setting the label key description for the vigenere 
+            gtk_label_set_markup (key_descr_lbl, LBL_TXT_KEY_VIGENERE);
+            break;
+        }
+    }
+}
+
 
 // starting the current algorithm based on specifications
 gchar *switch_algorithms(gchar *text, gchar *key) {
@@ -65,6 +83,9 @@ gchar *switch_algorithms(gchar *text, gchar *key) {
         }
         case vigenere: {
             return encrypt_vigenere(text, key, _isDecryption);
+        }
+        case otp: {
+            return encrypt_otp(text, key, _isDecryption);
         }
     }
 }
@@ -165,6 +186,21 @@ void reset_to_init_config() {
     set_encryption_form_attributes();
 }
 
+void on_text_to_encrypt_insert_at_cursor(GtkTextView *txtView) {
+
+    switch(_currAlg) {
+        // text changed listener for the OTP algorithm
+        case otp: {
+            gchar *text;
+            // retrieving the text to encrypt 
+            text = GetTextFromGTKTextView(encr_txt);
+            printf("%s\n", text);
+            break;
+        }
+    }
+        
+}
+
 ////////////////////////////////////////////
 
 // window for the algorithm initialization 
@@ -183,9 +219,13 @@ void initMainWindow_Gen(GtkWidget *win_gen, GtkBuilder *builder, general_algorit
     // getting the change text elements 
     descr_txt_label = GTK_LABEL(gtk_builder_get_object(builder, "txt_1_descr_lbl"));
     action_btn = GTK_BUTTON(gtk_builder_get_object(builder, "enc_action_btn"));
-    
+    key_descr_lbl = GTK_LABEL(gtk_builder_get_object(builder, "key_descr_lbl"));
+
     // standard configuration: encryption
     reset_to_init_config();
+
+    // configuration of the form depending on algorithm
+    init_form_on_algorithm();
 }
 
 

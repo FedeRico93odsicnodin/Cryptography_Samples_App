@@ -2,7 +2,104 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <object class="GtkWindow" id="caesar_win">
+  <object class="GtkWindow">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkFixed">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkLabel" id="txt_1_descr_lbl1">
+            <property name="width-request">100</property>
+            <property name="height-request">31</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">please insert the text to entrypt:</property>
+          </object>
+          <packing>
+            <property name="x">20</property>
+            <property name="y">10</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTextView" id="text_to_encrypt1">
+            <property name="width-request">400</property>
+            <property name="height-request">50</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">20</property>
+            <property name="y">40</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="key_descr_lbl1">
+            <property name="width-request">100</property>
+            <property name="height-request">30</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">runtime key:</property>
+          </object>
+          <packing>
+            <property name="x">19</property>
+            <property name="y">95</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTextView" id="text_to_encrypt2">
+            <property name="width-request">400</property>
+            <property name="height-request">50</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">20</property>
+            <property name="y">150</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="key_descr_lbl2">
+            <property name="width-request">100</property>
+            <property name="height-request">30</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">runtime encryption</property>
+          </object>
+          <packing>
+            <property name="x">280</property>
+            <property name="y">120</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTextView" id="text_to_encrypt3">
+            <property name="width-request">400</property>
+            <property name="height-request">50</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+          </object>
+          <packing>
+            <property name="x">20</property>
+            <property name="y">240</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="key_descr_lbl3">
+            <property name="width-request">100</property>
+            <property name="height-request">30</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">runtime decryption</property>
+          </object>
+          <packing>
+            <property name="x">280</property>
+            <property name="y">210</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="gen_win_1">
     <property name="can-focus">False</property>
     <property name="default-width">440</property>
     <property name="default-height">250</property>
@@ -17,6 +114,7 @@
             <property name="height-request">100</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <signal name="key-release-event" handler="on_text_to_encrypt_insert_at_cursor" swapped="no"/>
           </object>
           <packing>
             <property name="x">20</property>
@@ -80,13 +178,13 @@
         </child>
         <child>
           <object class="GtkTextView" id="key_length">
-            <property name="width-request">100</property>
+            <property name="width-request">130</property>
             <property name="height-request">30</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
           </object>
           <packing>
-            <property name="x">320</property>
+            <property name="x">290</property>
             <property name="y">145</property>
           </packing>
         </child>
@@ -166,6 +264,16 @@
                         <signal name="button-press-event" handler="on_gen_alg_button_press_event" swapped="no"/>
                       </object>
                     </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="stream_alg">
+                        <property name="label" translatable="yes">Stream ciphers</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="image">image3</property>
+                        <property name="use-stock">False</property>
+                        <signal name="button-press-event" handler="on_stream_alg_button_press_event" swapped="no"/>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -240,7 +348,46 @@
             <property name="y">45</property>
           </packing>
         </child>
+        <child>
+          <!-- n-columns=1 n-rows=3 -->
+          <object class="GtkGrid" id="grid_stream">
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="can-focus">False</property>
+            <property name="halign">start</property>
+            <property name="valign">start</property>
+            <property name="margin-bottom">1</property>
+            <child>
+              <object class="GtkButton" id="otp_start">
+                <property name="label" translatable="yes">OTP</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <signal name="clicked" handler="on_otp_start_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="x">22</property>
+            <property name="y">45</property>
+          </packing>
+        </child>
       </object>
     </child>
+  </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-missing-image</property>
   </object>
 </interface>

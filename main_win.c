@@ -22,6 +22,9 @@ GtkWidget	*win_main;
 // grids to display and visibility properties
 GtkWidget	*grid_gen;
 gboolean _isGridGenVisible = False;
+GtkWidget *grid_stream;
+gboolean _isGridStreamVisible = False;
+
 
 int main(int argc, char *argv[]) {
 
@@ -38,7 +41,7 @@ int main(int argc, char *argv[]) {
 
     // general algorithms display grid
     grid_gen = GTK_WIDGET(gtk_builder_get_object(builder, "grid_gen"));
-
+    grid_stream = GTK_WIDGET(gtk_builder_get_object(builder, "grid_stream"));
 
     // initializations of the contexts for the application
     Gen_Alg_Init_Windows(win_main, builder);
@@ -56,8 +59,39 @@ int main(int argc, char *argv[]) {
 	}
 
 
-////////// menu iterms actions //////////
+////////// MENU ITEMS ACTIONS //////////
+// deactivation of all the grids displayed in the main view
+void deactivate_all_grids() {
+
+    gtk_widget_hide(grid_gen);
+    gtk_widget_hide(grid_stream);
+
+    _isGridGenVisible = False;
+    _isGridStreamVisible = False;
+}
+
+
+void on_stream_alg_button_press_event(GtkMenuItem *gen) {
+    // first deactivation of all the grids
+    deactivate_all_grids();
+
+    if(_isGridStreamVisible == False) {
+        gtk_widget_show(grid_stream);
+        _isGridStreamVisible = True;
+    }
+    else 
+    {
+        gtk_widget_hide(grid_gen);
+        _isGridStreamVisible = False;
+    }
+
+}
+
+
 void	on_gen_alg_button_press_event (GtkMenuItem *gen) {
+    // first deactivation of all the grids
+    deactivate_all_grids();
+
     if(_isGridGenVisible == False) {
         gtk_widget_show(grid_gen);
         _isGridGenVisible = True;
@@ -69,5 +103,7 @@ void	on_gen_alg_button_press_event (GtkMenuItem *gen) {
     }
 	
 	}
+
+    
 
 
