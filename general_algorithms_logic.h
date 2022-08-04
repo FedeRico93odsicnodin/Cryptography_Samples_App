@@ -8,34 +8,52 @@
 #include <math.h>
 #include <ctype.h>
 
-// algorithms inclusion
-#include "general_algorithms/Caesar.h"
+#include "frm_enc_dec_1.h"
+
+
+
+// the builder for the view
+GtkBuilder *_builder;
 
 // reference to main win
 GtkWidget	*win_main_ref;
 
 // different algorithms windows
-GtkWidget	*win_caesar;
+GtkWidget	*win_gen_alg;
 
 // allows to initialize windows for current context 
 void Gen_Alg_Init_Windows(GtkWidget *win_main, GtkBuilder *builder) {
 
+    // ref to the builder
+    _builder = builder;
+
     // ref to main win
     win_main_ref = win_main;
-    win_caesar = GTK_WIDGET(gtk_builder_get_object(builder, "caesar_win"));
+    win_gen_alg = GTK_WIDGET(gtk_builder_get_object(_builder, "gen_win_1"));
 
-    // initialization for the program interface 
-    InitMainWindow_Caesar(win_caesar, builder);
+    
 }
 
 
 void on_caesar_start_clicked(GtkButton *b) 
 {
     gtk_widget_hide(win_main_ref);
-    gtk_widget_show(win_caesar);
+
+    // init for the Caesar 
+    initMainWindow_Gen(win_gen_alg, _builder, caesar);
+    gtk_widget_show(win_gen_alg);
 }
 
 void on_caesar_win_delete_event(GtkWidget *w) {
-    gtk_widget_hide(win_caesar);
+    gtk_widget_hide(win_gen_alg);
     gtk_widget_show(win_main_ref);
+}
+
+void on_vigenère_start_clicked(GtkButton *b) 
+{
+    gtk_widget_hide(win_main_ref);
+
+    // init for the Vigenère
+    initMainWindow_Gen(win_gen_alg, _builder, vigenere);
+    gtk_widget_show(win_gen_alg);
 }

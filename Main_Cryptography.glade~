@@ -24,7 +24,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkLabel" id="txt_1_descr_lbl">
             <property name="width-request">100</property>
             <property name="height-request">31</property>
             <property name="visible">True</property>
@@ -51,7 +51,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkLabel" id="key_descr_lbl">
             <property name="width-request">100</property>
             <property name="height-request">30</property>
             <property name="visible">True</property>
@@ -86,7 +86,7 @@
             <property name="can-focus">True</property>
           </object>
           <packing>
-            <property name="x">190</property>
+            <property name="x">320</property>
             <property name="y">145</property>
           </packing>
         </child>
@@ -219,7 +219,17 @@
               </packing>
             </child>
             <child>
-              <placeholder/>
+              <object class="GtkButton" id="vigenère_start">
+                <property name="label" translatable="yes">Vigenère</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <signal name="clicked" handler="on_vigenère_start_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+              </packing>
             </child>
             <child>
               <placeholder/>
