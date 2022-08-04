@@ -71,7 +71,7 @@ gchar *encrypt_caesar(gchar *txtToEncrypt, int key) {
         txtToEncrypt[i] = ch;
     }
     // done encryption 
-    printf("caesar encryption done!\n");
+    printf("caesar encryption doneee!\n");
     return txtToEncrypt;
 
 }
@@ -81,7 +81,6 @@ gchar *encrypt_caesar(gchar *txtToEncrypt, int key) {
 // button action for encryption / decryption
 void on_enc_action_btn_clicked(GtkButton *b) {
 
-    if(!_isDecryption) {
 
         GtkTextBuffer *buffer_res = gtk_text_view_get_buffer (decr_txt);
         gchar *text;
@@ -102,8 +101,6 @@ void on_enc_action_btn_clicked(GtkButton *b) {
         encrypted_txt = encrypt_caesar(text, key);
 
         gtk_text_buffer_set_text(buffer_res, encrypted_txt, -1);
-    }
-
 }
 
 // reverting the actions for the algorithm (from enc to dec)
